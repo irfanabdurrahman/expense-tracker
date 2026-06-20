@@ -12,85 +12,56 @@
 body{font-family:'Plus Jakarta Sans',sans-serif;background:#06080f;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;position:relative;overflow:hidden}
 button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
 .sg{font-family:'Space Grotesk',sans-serif}
-
-/* scrollbar hide */
 .noscroll::-webkit-scrollbar{width:0;height:0}
 .noscroll{-ms-overflow-style:none;scrollbar-width:none}
-
-/* animations */
 @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-26px) scale(1.08)}}
 @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-24px,20px) scale(1.12)}}
 @keyframes pulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.6);opacity:0}}
 @keyframes skscan{0%{top:6%}100%{top:94%}}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes sheetin{from{transform:translateY(100%)}to{transform:translateY(0)}}
-
-/* theme vars */
+@keyframes spin{to{transform:rotate(360deg)}}
 :root{--bg:#0a0e1a;--accent:#00e5ff;--accent2:#7c4dff;--income:#34d399;--expense:#fb7185}
 [data-theme="mint"]{--bg:#0b1410;--accent:#34d399;--accent2:#fbbf24}
 [data-theme="sunset"]{--bg:#190f1c;--accent:#ff8a5c;--accent2:#ff5d8f;--income:#4ade80}
-
-/* layout */
 .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px}
 .phone{width:390px;height:830px;background:#000;border-radius:54px;padding:13px;box-shadow:0 50px 120px -20px rgba(0,0,0,.8),0 0 0 1.5px rgba(255,255,255,.08),inset 0 0 2px rgba(255,255,255,.2);position:relative;flex-shrink:0}
 .screen{width:100%;height:100%;background:var(--bg);border-radius:42px;overflow:hidden;position:relative;color:#eef2fb}
-
-/* ambient blobs inside phone */
 .blob-in-1{position:absolute;width:300px;height:300px;left:-60px;top:-40px;background:radial-gradient(circle,var(--accent2) 0%,transparent 70%);opacity:.18;filter:blur(30px);border-radius:50%;pointer-events:none;z-index:0}
 .blob-in-2{position:absolute;width:280px;height:280px;right:-70px;top:120px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.14;filter:blur(34px);border-radius:50%;pointer-events:none;z-index:0}
-
-/* status bar */
 .statusbar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;flex-shrink:0}
 .battery{width:17px;height:9px;border:1.4px solid #eef2fb;border-radius:3px;opacity:.8;display:inline-block}
-
-/* views */
 .view{display:none;position:relative;z-index:2}
 .view.active{display:flex;flex-direction:column}
 .anim-fade{animation:fade .4s ease}
-
-/* scroll area */
 .scrollarea{flex:1;overflow-y:auto;padding:0 20px 110px}
-
-/* bottom nav */
 .bnav{position:absolute;bottom:0;left:0;right:0;z-index:5;padding:0 18px 22px;pointer-events:none}
 .bnav-inner{position:relative;display:flex;align-items:center;justify-content:space-between;background:rgba(16,20,34,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:10px 14px;pointer-events:auto;box-shadow:0 16px 40px -12px rgba(0,0,0,.7)}
 .bnav-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 10px;font-size:9.5px;font-weight:600;transition:color .2s}
 .bnav-btn .icon{font-size:20px}
 .bnav-center{width:54px;height:54px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-size:30px;font-weight:300;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -6px var(--accent2);margin-top:-26px}
-
-/* sheet */
 #sheet-overlay{position:absolute;inset:0;z-index:20;background:rgba(3,5,12,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fade .25s ease}
 #sheet-panel{position:absolute;left:0;right:0;bottom:0;z-index:21;background:#10131f;border-radius:30px 30px 0 0;border-top:1px solid rgba(255,255,255,.12);padding:10px 22px 30px;color:#eef2fb;animation:sheetin .32s cubic-bezier(.16,1,.3,1);max-height:94%;overflow-y:auto}
 .sheet-handle{width:42px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);margin:6px auto 16px}
 .method-tab{flex:1;border:none;border-radius:11px;padding:10px 0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:12.5px;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s,color .2s}
 .tab-bar{display:flex;gap:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:15px;padding:5px}
-
-/* toast */
 #toast{position:absolute;left:50%;top:70px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:9px;background:rgba(16,20,34,.95);border:1px solid rgba(52,211,153,.4);border-radius:16px;padding:12px 18px;color:#eef2fb;font-size:13px;font-weight:600;animation:fade .3s ease;box-shadow:0 14px 36px -10px rgba(0,0,0,.7);white-space:nowrap}
 #toast .check{width:22px;height:22px;border-radius:50%;background:var(--income);display:flex;align-items:center;justify-content:center;color:#06080f;font-size:13px;flex-shrink:0}
-
-/* card */
 .glass-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:17px}
-
-/* keypad button */
 .kbtn{border:none;background:rgba(255,255,255,.05);border-radius:15px;padding:15px 0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;color:#eef2fb;width:100%}
-
-/* pulse rings for voice */
 .pulse-ring{position:absolute;inset:0;border-radius:50%;background:var(--accent2);opacity:.5}
 .pulse-ring:nth-child(1){animation:pulse 2s ease-out infinite}
 .pulse-ring:nth-child(2){animation:pulse 2s ease-out infinite .6s}
 .pulse-ring:nth-child(3){animation:pulse 2s ease-out infinite 1.2s}
-
-/* scan line */
 .scan-line{position:absolute;left:6%;right:6%;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);box-shadow:0 0 14px var(--accent);animation:skscan 2.4s ease-in-out infinite alternate}
-
-/* hidden */
 .h{display:none!important}
+input[type="email"],input[type="text"]{outline:none;transition:border-color .2s}
+input[type="email"]:focus,input[type="text"]:focus{border-color:rgba(0,229,255,.5)!important}
+::placeholder{color:#5b6479}
 </style>
 </head>
 <body>
 
-<!-- outer ambient -->
 <div style="position:absolute;width:520px;height:520px;left:8%;top:6%;background:radial-gradient(circle,var(--accent2) 0%,transparent 70%);opacity:.22;filter:blur(40px);border-radius:50%;pointer-events:none;animation:float1 14s ease-in-out infinite"></div>
 <div style="position:absolute;width:560px;height:560px;right:6%;bottom:4%;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.2;filter:blur(48px);border-radius:50%;pointer-events:none;animation:float2 17s ease-in-out infinite"></div>
 
@@ -100,7 +71,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
       <div class="blob-in-1"></div>
       <div class="blob-in-2"></div>
 
-      <!-- ========== LOGIN ========== -->
+      <!-- LOGIN -->
       <div id="v-login" class="view active" style="height:100%;flex-direction:column;padding:0 30px;z-index:2">
         <div class="statusbar" style="height:54px"><span>9:41</span><span class="battery"></span></div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation:fade .8s ease">
@@ -134,12 +105,12 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
             </span>
             Lanjutkan dengan Google
           </button>
-          <button data-action="login" style="width:100%;height:52px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(255,255,255,.04);color:#cdd5e6;font-weight:600;font-size:14px">Masuk dengan email</button>
+          <button data-action="login-email" style="width:100%;height:52px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(255,255,255,.04);color:#cdd5e6;font-weight:600;font-size:14px">Masuk dengan email</button>
           <p style="text-align:center;color:#5b6479;font-size:11px;margin:6px 0 0;line-height:1.5">Dengan masuk, kamu menyetujui Ketentuan<br>Layanan &amp; Kebijakan Privasi Saku.</p>
         </div>
       </div>
 
-      <!-- ========== APP SHELL ========== -->
+      <!-- APP SHELL -->
       <div id="v-app" class="view" style="height:100%;position:relative;z-index:2">
         <div class="statusbar"><span>9:41</span><span class="battery"></span></div>
         <div class="scrollarea noscroll" id="main-scroll">
@@ -148,12 +119,12 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
           <div id="v-home" class="view active anim-fade">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0 18px">
               <div>
-                <div style="color:#8b95ad;font-size:13px">Halo, Budi 👋</div>
+                <div id="user-greeting" style="color:#8b95ad;font-size:13px">Halo 👋</div>
                 <div style="display:inline-flex;align-items:center;gap:6px;margin-top:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:4px 11px;font-size:12px;font-weight:600;color:#cdd5e6">
-                  <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)"></span>Keluarga Wijaya
+                  <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)"></span><span id="family-badge-name">Keluarga Saku</span>
                 </div>
               </div>
-              <button data-action="nav-profile" style="width:46px;height:46px;border:none;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#06080f;box-shadow:0 8px 22px -6px var(--accent2)">B</button>
+              <button id="profile-btn" data-action="nav-profile" style="width:46px;height:46px;border:none;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#06080f;box-shadow:0 8px 22px -6px var(--accent2)">S</button>
             </div>
 
             <!-- balance card -->
@@ -209,20 +180,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               <span style="flex:1"></span>
               <button data-action="nav-family" style="background:none;border:none;color:var(--accent);font-size:12.5px;font-weight:600">Kelola</button>
             </div>
-            <div style="display:flex;gap:14px;margin-top:11px">
-              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-                <div style="width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#06080f;background:linear-gradient(135deg,#00e5ff,#7c4dff)">B</div>
-                <span style="font-size:11px;color:#aeb6c9">Budi</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-                <div style="width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#06080f;background:linear-gradient(135deg,#34d399,#0ea5e9)">S</div>
-                <span style="font-size:11px;color:#aeb6c9">Sari</span>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-                <button data-action="nav-family" style="width:50px;height:50px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.2);background:rgba(255,255,255,.03);color:#8b95ad;font-size:24px;display:flex;align-items:center;justify-content:center">+</button>
-                <span style="font-size:11px;color:#8b95ad">Undang</span>
-              </div>
-            </div>
+            <div id="family-members-row" style="display:flex;gap:14px;margin-top:11px"></div>
 
             <!-- recent transactions -->
             <div style="display:flex;align-items:center;gap:10px;margin-top:24px">
@@ -230,32 +188,8 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               <span style="flex:1"></span>
               <button data-action="nav-reports" style="background:none;border:none;color:var(--accent);font-size:12.5px;font-weight:600">Lihat semua</button>
             </div>
-            <div style="display:flex;flex-direction:column;gap:9px;margin-top:11px">
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
-                <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:rgba(245,158,11,.16)">☕</div>
-                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Kopi &amp; Sarapan</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Makan · Budi</div></div>
-                <div style="text-align:right;flex-shrink:0"><div class="sg" style="font-weight:600;font-size:13.5px;color:#eef2fb">−Rp 42.000</div><div style="color:#6b7488;font-size:10.5px;margin-top:2px">Hari ini</div></div>
-              </div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
-                <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:rgba(52,211,153,.16)">💰</div>
-                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Gaji Bulanan</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Pemasukan · Budi</div></div>
-                <div style="text-align:right;flex-shrink:0"><div class="sg" style="font-weight:600;font-size:13.5px;color:var(--income)">+Rp 9.500.000</div><div style="color:#6b7488;font-size:10.5px;margin-top:2px">Hari ini</div></div>
-              </div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
-                <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:rgba(0,229,255,.14)">🛒</div>
-                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Belanja Indomaret</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Belanja · Sari</div></div>
-                <div style="text-align:right;flex-shrink:0"><div class="sg" style="font-weight:600;font-size:13.5px;color:#eef2fb">−Rp 135.000</div><div style="color:#6b7488;font-size:10.5px;margin-top:2px">Kemarin</div></div>
-              </div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
-                <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:rgba(124,77,255,.16)">💡</div>
-                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Token Listrik</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Tagihan · Sari</div></div>
-                <div style="text-align:right;flex-shrink:0"><div class="sg" style="font-weight:600;font-size:13.5px;color:#eef2fb">−Rp 200.000</div><div style="color:#6b7488;font-size:10.5px;margin-top:2px">2 hari lalu</div></div>
-              </div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
-                <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:rgba(251,113,133,.16)">🚗</div>
-                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Bensin Mobil</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Transport · Budi</div></div>
-                <div style="text-align:right;flex-shrink:0"><div class="sg" style="font-weight:600;font-size:13.5px;color:#eef2fb">−Rp 150.000</div><div style="color:#6b7488;font-size:10.5px;margin-top:2px">3 hari lalu</div></div>
-              </div>
+            <div id="txn-list" style="display:flex;flex-direction:column;gap:9px;margin-top:11px">
+              <div style="text-align:center;padding:28px 0;color:#6b7488;font-size:13px">Memuat transaksi...</div>
             </div>
           </div>
 
@@ -265,29 +199,27 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               <h2 class="sg" style="font-size:25px;font-weight:700;letter-spacing:-0.5px">Laporan</h2>
               <p style="color:#8b95ad;font-size:13px;margin:3px 0 0">Ringkasan keuangan keluarga</p>
             </div>
-            <!-- period tabs -->
             <div class="tab-bar" id="period-tabs">
               <button class="method-tab" data-period="0" style="background:transparent;color:#8b95ad">Minggu</button>
               <button class="method-tab" data-period="1" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f">Bulan</button>
               <button class="method-tab" data-period="2" style="background:transparent;color:#8b95ad">Tahun</button>
             </div>
-            <!-- income/expense summary -->
             <div style="display:flex;gap:10px;margin-top:15px">
               <div style="flex:1;background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.22);border-radius:17px;padding:13px">
                 <div style="color:var(--income);font-size:11px;font-weight:600">Pemasukan</div>
-                <div class="sg" style="font-weight:700;font-size:15px;margin-top:5px">Rp 18.750.000</div>
+                <div id="report-income" class="sg" style="font-weight:700;font-size:15px;margin-top:5px">Rp 0</div>
               </div>
               <div style="flex:1;background:rgba(251,113,133,.10);border:1px solid rgba(251,113,133,.22);border-radius:17px;padding:13px">
                 <div style="color:var(--expense);font-size:11px;font-weight:600">Pengeluaran</div>
-                <div class="sg" style="font-weight:700;font-size:15px;margin-top:5px">Rp 11.420.000</div>
+                <div id="report-expense" class="sg" style="font-weight:700;font-size:15px;margin-top:5px">Rp 0</div>
               </div>
             </div>
             <div style="margin-top:10px;border-radius:17px;padding:15px 16px;background:linear-gradient(135deg,rgba(0,229,255,.14),rgba(124,77,255,.12));border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between">
               <div>
                 <div style="color:#c6cde0;font-size:11.5px;font-weight:600">Saldo Bersih</div>
-                <div class="sg" style="font-weight:700;font-size:20px;margin-top:3px">Rp 7.330.000</div>
+                <div id="report-saldo" class="sg" style="font-weight:700;font-size:20px;margin-top:3px">Rp 0</div>
               </div>
-              <div style="text-align:right;color:var(--income);font-size:12px;font-weight:600">+39% hemat</div>
+              <div id="report-pct" style="text-align:right;color:var(--income);font-size:12px;font-weight:600">0% hemat</div>
             </div>
 
             <!-- donut -->
@@ -306,7 +238,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
                   </svg>
                   <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
                     <span style="color:#8b95ad;font-size:9.5px">Total</span>
-                    <span class="sg" style="font-weight:700;font-size:13px">Rp 11,4jt</span>
+                    <span id="donut-total" class="sg" style="font-weight:700;font-size:13px">Rp 0</span>
                   </div>
                 </div>
                 <div style="flex:1;display:flex;flex-direction:column;gap:8px">
@@ -339,48 +271,11 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               </div>
             </div>
 
-            <!-- budgets -->
-            <div style="margin-top:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:17px">
-              <div style="font-size:14px;font-weight:700;margin-bottom:13px">Anggaran Bulan Ini</div>
-              <div style="display:flex;flex-direction:column;gap:14px">
-                <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="font-size:15px">🍔</span><span style="font-size:12.5px;font-weight:600;flex:1">Makan</span><span class="sg" style="font-size:11.5px;color:#8b95ad">Rp 2.900.000 / Rp 3.500.000</span></div><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:83%"></div></div></div>
-                <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="font-size:15px">🛒</span><span style="font-size:12.5px;font-weight:600;flex:1">Belanja</span><span class="sg" style="font-size:11.5px;color:#8b95ad">Rp 3.800.000 / Rp 3.500.000</span></div><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:6px;background:linear-gradient(90deg,#fb7185,#f59e0b);width:100%"></div></div></div>
-                <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="font-size:15px">🚗</span><span style="font-size:12.5px;font-weight:600;flex:1">Transport</span><span class="sg" style="font-size:11.5px;color:#8b95ad">Rp 1.400.000 / Rp 2.000.000</span></div><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:70%"></div></div></div>
-                <div><div style="display:flex;align-items:center;gap:8px;margin-bottom:7px"><span style="font-size:15px">🎮</span><span style="font-size:12.5px;font-weight:600;flex:1">Hiburan</span><span class="sg" style="font-size:11.5px;color:#8b95ad">Rp 900.000 / Rp 1.500.000</span></div><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:60%"></div></div></div>
-              </div>
-            </div>
-
-            <!-- member spend -->
-            <div style="margin-top:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:17px">
-              <div style="font-size:14px;font-weight:700;margin-bottom:13px">Pengeluaran per Anggota</div>
-              <div style="display:flex;flex-direction:column;gap:13px">
-                <div style="display:flex;align-items:center;gap:11px">
-                  <div style="width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#06080f;flex-shrink:0;background:linear-gradient(135deg,#00e5ff,#7c4dff)">B</div>
-                  <div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:12.5px;font-weight:600">Budi</span><span class="sg" style="font-size:12px;color:#cdd5e6">Rp 6.800.000</span></div><div style="height:7px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:100%"></div></div></div>
-                </div>
-                <div style="display:flex;align-items:center;gap:11px">
-                  <div style="width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#06080f;flex-shrink:0;background:linear-gradient(135deg,#34d399,#0ea5e9)">S</div>
-                  <div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:12.5px;font-weight:600">Sari</span><span class="sg" style="font-size:12px;color:#cdd5e6">Rp 4.620.000</span></div><div style="height:7px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden"><div style="height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:68%"></div></div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- top expenses -->
-            <div style="margin-top:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:17px">
-              <div style="font-size:14px;font-weight:700;margin-bottom:11px">Pengeluaran Terbesar</div>
-              <div style="display:flex;flex-direction:column;gap:11px">
-                <div style="display:flex;align-items:center;gap:11px"><span class="sg" style="font-weight:700;font-size:13px;color:#6b7488;width:14px">1</span><div style="width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;background:rgba(124,77,255,.16)">🏠</div><span style="flex:1;font-size:13px;font-weight:600">Cicilan Rumah</span><span class="sg" style="font-size:13px;font-weight:600;color:var(--expense)">Rp 3.000.000</span></div>
-                <div style="display:flex;align-items:center;gap:11px"><span class="sg" style="font-weight:700;font-size:13px;color:#6b7488;width:14px">2</span><div style="width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;background:rgba(0,229,255,.14)">🛒</div><span style="flex:1;font-size:13px;font-weight:600">Belanja Bulanan</span><span class="sg" style="font-size:13px;font-weight:600;color:var(--expense)">Rp 1.850.000</span></div>
-                <div style="display:flex;align-items:center;gap:11px"><span class="sg" style="font-weight:700;font-size:13px;color:#6b7488;width:14px">3</span><div style="width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;background:rgba(52,211,153,.16)">💡</div><span style="flex:1;font-size:13px;font-weight:600">Tagihan Listrik</span><span class="sg" style="font-size:13px;font-weight:600;color:var(--expense)">Rp 680.000</span></div>
-                <div style="display:flex;align-items:center;gap:11px"><span class="sg" style="font-weight:700;font-size:13px;color:#6b7488;width:14px">4</span><div style="width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;background:rgba(251,113,133,.16)">🚗</div><span style="flex:1;font-size:13px;font-weight:600">Servis Mobil</span><span class="sg" style="font-size:13px;font-weight:600;color:var(--expense)">Rp 550.000</span></div>
-              </div>
-            </div>
-
             <!-- calendar heatmap -->
             <div style="margin-top:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:17px;margin-bottom:4px">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
                 <span style="font-size:14px;font-weight:700">Kalender Pengeluaran</span>
-                <span style="font-size:11px;color:#8b95ad">Juni 2026</span>
+                <span id="calendar-month" style="font-size:11px;color:#8b95ad">Juni 2026</span>
               </div>
               <div id="calendar-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px"></div>
               <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:11px;font-size:9.5px;color:#8b95ad">
@@ -405,38 +300,26 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               <div style="position:relative;display:flex;align-items:center;gap:14px">
                 <div style="width:54px;height:54px;border-radius:17px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:26px">🏡</div>
                 <div>
-                  <div class="sg" style="font-weight:700;font-size:18px">Keluarga Wijaya</div>
-                  <div style="color:#c6cde0;font-size:12px;margin-top:2px">2 anggota aktif · Dibuat Jan 2026</div>
+                  <div id="family-screen-title" class="sg" style="font-weight:700;font-size:18px">Keluarga Saku</div>
+                  <div id="family-screen-sub" style="color:#c6cde0;font-size:12px;margin-top:2px">1 anggota aktif</div>
                 </div>
               </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin:22px 0 11px">
               <span style="font-size:14px;font-weight:700">Anggota</span>
-              <span style="background:rgba(255,255,255,.08);border-radius:20px;padding:2px 8px;font-size:11px;color:#aeb6c9">2</span>
+              <span id="family-member-count" style="background:rgba(255,255,255,.08);border-radius:20px;padding:2px 8px;font-size:11px;color:#aeb6c9">0</span>
             </div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:13px 15px">
-                <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#06080f;flex-shrink:0;background:linear-gradient(135deg,#00e5ff,#7c4dff)">B</div>
-                <div style="flex:1"><div style="font-weight:700;font-size:14px">Budi</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">budi@gmail.com</div></div>
-                <span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(0,229,255,.15);color:var(--accent)">Admin</span>
-              </div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:13px 15px">
-                <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#06080f;flex-shrink:0;background:linear-gradient(135deg,#34d399,#0ea5e9)">S</div>
-                <div style="flex:1"><div style="font-weight:700;font-size:14px">Sari</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">sari@gmail.com</div></div>
-                <span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.08);color:#aeb6c9">Anggota</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.13);border-radius:17px;padding:13px 15px">
-                <div style="width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">✉️</div>
-                <div style="flex:1"><div style="font-weight:600;font-size:13.5px;color:#cdd5e6">rina@gmail.com</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">Menunggu konfirmasi</div></div>
-                <span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(251,191,36,.15);color:#fbbf24">Pending</span>
-              </div>
-            </div>
+            <div id="family-member-list" style="display:flex;flex-direction:column;gap:10px"></div>
+
             <div style="margin-top:20px;display:flex;flex-direction:column;gap:11px">
-              <button data-action="do-invite" style="width:100%;height:54px;border:none;border-radius:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 12px 30px -10px var(--accent2)">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>
-                Bagikan Tautan Undangan
+              <div style="display:flex;gap:9px">
+                <input id="invite-email" type="email" placeholder="email anggota baru..." style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:0 14px;color:#eef2fb;font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;height:50px">
+                <button data-action="do-invite" style="width:90px;height:50px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:13px;box-shadow:0 10px 24px -8px var(--accent2)">Undang</button>
+              </div>
+              <button data-action="copy-link" style="width:100%;height:50px;border:1px solid rgba(255,255,255,.14);border-radius:17px;background:rgba(255,255,255,.04);color:#cdd5e6;font-weight:600;font-size:13.5px;display:flex;align-items:center;justify-content:center;gap:9px">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Salin Kode Keluarga
               </button>
-              <button data-action="do-invite" style="width:100%;height:50px;border:1px solid rgba(255,255,255,.14);border-radius:17px;background:rgba(255,255,255,.04);color:#cdd5e6;font-weight:600;font-size:13.5px">Undang via Email</button>
             </div>
             <div style="margin-top:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px 15px;display:flex;gap:11px;margin-bottom:4px">
               <span style="font-size:16px">🔒</span>
@@ -452,11 +335,11 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
             <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0 4px">
               <div style="position:relative;margin-bottom:13px">
                 <div style="position:absolute;inset:-10px;background:radial-gradient(circle,var(--accent),transparent 70%);opacity:.35;filter:blur(14px);border-radius:50%"></div>
-                <div style="position:relative;width:84px;height:84px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:#06080f">B</div>
+                <div id="profile-avatar" style="position:relative;width:84px;height:84px;border-radius:26px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:#06080f">S</div>
               </div>
-              <div class="sg" style="font-weight:700;font-size:20px">Budi</div>
-              <div style="color:#8b95ad;font-size:13px;margin-top:3px">budi@gmail.com</div>
-              <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.25);border-radius:20px;padding:5px 13px;font-size:11.5px;font-weight:600;color:var(--accent)">★ Admin Keluarga Wijaya</div>
+              <div id="profile-name" class="sg" style="font-weight:700;font-size:20px">—</div>
+              <div id="profile-email" style="color:#8b95ad;font-size:13px;margin-top:3px">—</div>
+              <div id="profile-role" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.25);border-radius:20px;padding:5px 13px;font-size:11.5px;font-weight:600;color:var(--accent)">★ Anggota</div>
             </div>
             <div style="margin-top:22px;font-size:13px;font-weight:700;color:#aeb6c9;margin-bottom:11px">Tema Tampilan</div>
             <div style="display:flex;gap:11px" id="theme-selector">
@@ -478,7 +361,6 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
               <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:14px 15px"><div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🎯</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Anggaran &amp; Target</div><div style="color:#7e889e;font-size:11px;margin-top:1px">Atur batas per kategori</div></div><span style="color:#5b6479;font-size:18px">›</span></div>
               <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:14px 15px"><div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🏷️</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Kelola Kategori</div><div style="color:#7e889e;font-size:11px;margin-top:1px">Tambah atau ubah kategori</div></div><span style="color:#5b6479;font-size:18px">›</span></div>
               <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:14px 15px"><div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🔒</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Keamanan</div><div style="color:#7e889e;font-size:11px;margin-top:1px">PIN &amp; biometrik</div></div><span style="color:#5b6479;font-size:18px">›</span></div>
-              <div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:14px 15px"><div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">❓</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Bantuan</div><div style="color:#7e889e;font-size:11px;margin-top:1px">Pusat bantuan Saku</div></div><span style="color:#5b6479;font-size:18px">›</span></div>
             </div>
             <button data-action="logout" style="width:100%;margin-top:18px;height:50px;border:1px solid rgba(251,113,133,.3);border-radius:16px;background:rgba(251,113,133,.08);color:var(--expense);font-weight:600;font-size:13.5px">Keluar</button>
             <div style="text-align:center;color:#5b6479;font-size:11px;margin-top:14px;margin-bottom:4px">Saku v1.0 · Dibuat dengan ❤️ untuk keluarga</div>
@@ -506,11 +388,10 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
         </div>
       </div><!-- end v-app -->
 
-      <!-- ========== SHEET ========== -->
+      <!-- SHEET -->
       <div id="sheet-overlay" class="h" data-action="close-sheet"></div>
       <div id="sheet-panel" class="h noscroll">
         <div class="sheet-handle"></div>
-        <!-- method tabs -->
         <div class="tab-bar" id="sheet-tabs" style="margin-bottom:18px">
           <button class="method-tab" data-method="manual" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f"><span style="font-size:14px">✏️</span>Manual</button>
           <button class="method-tab" data-method="voice" style="background:transparent;color:#8b95ad"><span style="font-size:14px">🎙️</span>Suara</button>
@@ -538,9 +419,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
           <div class="sg" style="font-weight:700;font-size:20px">Catat dengan Suara</div>
           <p style="color:#8b95ad;font-size:13px;margin:6px 0 0">Tekan mik &amp; ucapkan transaksimu</p>
           <div style="position:relative;width:150px;height:150px;margin:30px auto;display:flex;align-items:center;justify-content:center">
-            <span class="pulse-ring"></span>
-            <span class="pulse-ring"></span>
-            <span class="pulse-ring"></span>
+            <span class="pulse-ring"></span><span class="pulse-ring"></span><span class="pulse-ring"></span>
             <div style="position:relative;width:104px;height:104px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 40px -8px var(--accent2)">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#06080f" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>
             </div>
@@ -554,7 +433,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
             <div style="flex:1"><div style="font-size:10px;color:var(--accent);font-weight:600">TERDETEKSI OTOMATIS</div><div style="font-weight:600;font-size:14px;margin-top:2px">Belanja · Indomaret</div></div>
             <div class="sg" style="font-weight:700;font-size:17px;color:var(--expense)">Rp 35.000</div>
           </div>
-          <button data-action="save-txn" style="width:100%;margin-top:16px;height:56px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:15.5px;box-shadow:0 12px 30px -10px var(--accent2)">Konfirmasi &amp; Simpan</button>
+          <button data-action="save-voice-txn" style="width:100%;margin-top:16px;height:56px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:15.5px;box-shadow:0 12px 30px -10px var(--accent2)">Konfirmasi &amp; Simpan</button>
         </div>
 
         <!-- PHOTO -->
@@ -586,7 +465,7 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
           </div>
           <div style="display:flex;gap:11px;margin-top:16px">
             <button data-action="retry-photo" style="flex:1;height:54px;border:1px solid rgba(255,255,255,.14);border-radius:17px;background:rgba(255,255,255,.04);color:#cdd5e6;font-weight:600;font-size:14px">Ulangi</button>
-            <button data-action="save-txn" style="flex:2;height:54px;border:none;border-radius:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -10px var(--accent2)">Simpan</button>
+            <button data-action="save-photo-txn" style="flex:2;height:54px;border:none;border-radius:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06080f;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -10px var(--accent2)">Simpan</button>
           </div>
         </div>
       </div><!-- end sheet-panel -->
@@ -602,214 +481,444 @@ button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer}
   <div style="color:#4a5268;font-size:12px;font-family:'Space Grotesk',sans-serif;letter-spacing:.5px">Saku · Personal Finance Keluarga</div>
 </div><!-- end .wrap -->
 
-<script>
-// ── State ────────────────────────────────────────────────────────────────────
-const S = {
-  screen: 'login',   // login | home | reports | family | profile
-  theme: 'aurora',
-  sheet: null,       // null | manual | voice | photo
-  txnType: 'expense',
-  draft: '',
-  catIndex: 0,
-  hideBalance: true,
-  period: 1,
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, addDoc, deleteDoc, collection, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBdFQ1HoifhkXLlxnlE17wZyjqfbeBGkdU",
+  authDomain: "saku-finance-4cb59.firebaseapp.com",
+  projectId: "saku-finance-4cb59",
+  storageBucket: "saku-finance-4cb59.firebasestorage.app",
+  messagingSenderId: "1010636435688",
+  appId: "1:1010636435688:web:95061adc0b8a17994fd95d",
+  measurementId: "G-EZNWESWM58"
 };
 
-// ── DOM refs ─────────────────────────────────────────────────────────────────
-const screen    = document.getElementById('screen');
-const vLogin    = document.getElementById('v-login');
-const vApp      = document.getElementById('v-app');
-const vHome     = document.getElementById('v-home');
-const vReports  = document.getElementById('v-reports');
-const vFamily   = document.getElementById('v-family');
-const vProfile  = document.getElementById('v-profile');
-const sheetOv   = document.getElementById('sheet-overlay');
-const sheetPan  = document.getElementById('sheet-panel');
-const toast     = document.getElementById('toast');
-const toastText = document.getElementById('toast-text');
+const fbApp  = initializeApp(firebaseConfig);
+const auth   = getAuth(fbApp);
+const db     = getFirestore(fbApp);
+const gprov  = new GoogleAuthProvider();
+
+// ── State ─────────────────────────────────────────────────────────────────────
+const S = {
+  screen: 'login', theme: 'aurora', sheet: null,
+  txnType: 'expense', draft: '', catIndex: 0,
+  hideBalance: true, period: 1,
+  user: null, familyId: null, familyName: 'Keluarga Saku',
+  familyMembers: [], transactions: [], unsubTxn: null,
+};
+
+// ── DOM ───────────────────────────────────────────────────────────────────────
+const scrEl   = document.getElementById('screen');
+const vLogin  = document.getElementById('v-login');
+const vApp    = document.getElementById('v-app');
+const vHome   = document.getElementById('v-home');
+const vRep    = document.getElementById('v-reports');
+const vFam    = document.getElementById('v-family');
+const vProf   = document.getElementById('v-profile');
+const shOv    = document.getElementById('sheet-overlay');
+const shPan   = document.getElementById('sheet-panel');
+const toastEl = document.getElementById('toast');
+const toastTx = document.getElementById('toast-text');
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-function fmt(n){ return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
-function show(el){ el.classList.remove('h'); }
-function hide(el){ el.classList.add('h'); }
+const fmt = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+const show = el => el && el.classList.remove('h');
+const hide = el => el && el.classList.add('h');
 
-let toastTimer;
-function showToast(msg){
-  toastText.textContent = msg;
-  show(toast);
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => hide(toast), 2200);
+function fmtDate(ts) {
+  if (!ts) return '';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  const diff = Math.floor((Date.now() - d) / 86400000);
+  if (diff === 0) return 'Hari ini';
+  if (diff === 1) return 'Kemarin';
+  if (diff < 7)  return `${diff} hari lalu`;
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'short' });
 }
 
-// ── Theme ────────────────────────────────────────────────────────────────────
-function applyTheme(t){
+let toastTimer;
+function showToast(msg, err = false) {
+  toastTx.textContent = msg;
+  toastEl.style.borderColor = err ? 'rgba(251,113,133,.4)' : 'rgba(52,211,153,.4)';
+  show(toastEl);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => hide(toastEl), 2400);
+}
+
+// ── Theme ─────────────────────────────────────────────────────────────────────
+function applyTheme(t) {
   S.theme = t;
-  screen.setAttribute('data-theme', t);
-  // Update theme buttons
-  document.querySelectorAll('[data-theme-pick]').forEach(btn => {
-    const active = btn.dataset.themePick === t;
-    const accent = t==='mint' ? '#34d399' : t==='sunset' ? '#ff8a5c' : '#00e5ff';
-    btn.style.background = active ? 'rgba(255,255,255,.07)' : 'rgba(255,255,255,.04)';
-    btn.style.border = active ? `1.5px solid ${accent}` : '1.5px solid rgba(255,255,255,.06)';
+  scrEl.setAttribute('data-theme', t);
+  const accentMap = { mint:'#34d399', sunset:'#ff8a5c', aurora:'#00e5ff' };
+  document.querySelectorAll('[data-theme-pick]').forEach(b => {
+    const active = b.dataset.themePick === t;
+    b.style.background = active ? 'rgba(255,255,255,.07)' : 'rgba(255,255,255,.04)';
+    b.style.border = active ? `1.5px solid ${accentMap[t]}` : '1.5px solid rgba(255,255,255,.06)';
+  });
+  if (S.user) setDoc(doc(db,'users',S.user.uid), { theme: t }, { merge: true }).catch(() => {});
+}
+
+// ── Balance ───────────────────────────────────────────────────────────────────
+function getFilteredTxns() {
+  const now = new Date();
+  let start;
+  if (S.period === 0) { start = new Date(now); start.setDate(now.getDate() - 7); }
+  else if (S.period === 1) { start = new Date(now.getFullYear(), now.getMonth(), 1); }
+  else { start = new Date(now.getFullYear(), 0, 1); }
+  return S.transactions.filter(t => {
+    if (!t.createdAt) return false;
+    const d = t.createdAt.toDate ? t.createdAt.toDate() : new Date(t.createdAt);
+    return d >= start;
   });
 }
 
-// ── Balance ──────────────────────────────────────────────────────────────────
-const INCOME = 18750000, EXPENSE = 11420000, SALDO = INCOME - EXPENSE;
-
-function updateBalance(){
-  const h = S.hideBalance;
-  document.getElementById('saldo-text').textContent  = h ? 'Rp ••••••••' : fmt(SALDO);
-  document.getElementById('income-text').textContent  = h ? 'Rp ••••••' : fmt(INCOME);
-  document.getElementById('expense-text').textContent = h ? 'Rp ••••••' : fmt(EXPENSE);
-  document.getElementById('balance-btn-text').textContent = h ? 'Lihat' : 'Sembunyikan';
-  // swap eye icon
-  const eyeIcon = document.getElementById('eye-icon');
-  if(h){
-    eyeIcon.innerHTML = '<path d="M2 12s3-8 10-8 10 8 10 8-3 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/>';
-  } else {
-    eyeIcon.innerHTML = '<path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.16 3.19M6.6 6.6A18 18 0 0 0 2 12s3 8 10 8a9 9 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M2 2l20 20"/>';
-  }
+function calcTotals(txns) {
+  const income  = txns.filter(t => t.type === 'income').reduce((s,t)  => s + (t.amount||0), 0);
+  const expense = txns.filter(t => t.type === 'expense').reduce((s,t) => s + (t.amount||0), 0);
+  return { income, expense, saldo: income - expense };
 }
 
+function updateBalance() {
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const monthTxns = S.transactions.filter(t => {
+    if (!t.createdAt) return false;
+    const d = t.createdAt.toDate ? t.createdAt.toDate() : new Date(t.createdAt);
+    return d >= monthStart;
+  });
+  const { income, expense, saldo } = calcTotals(monthTxns);
+  const h = S.hideBalance;
+  document.getElementById('saldo-text').textContent   = h ? 'Rp ••••••••' : fmt(saldo);
+  document.getElementById('income-text').textContent  = h ? 'Rp ••••••' : fmt(income);
+  document.getElementById('expense-text').textContent = h ? 'Rp ••••••' : fmt(expense);
+  document.getElementById('balance-btn-text').textContent = h ? 'Lihat' : 'Sembunyikan';
+  const eye = document.getElementById('eye-icon');
+  eye.innerHTML = h
+    ? '<path d="M2 12s3-8 10-8 10 8 10 8-3 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/>'
+    : '<path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 10 8 10 8a18 18 0 0 1-2.16 3.19M6.6 6.6A18 18 0 0 0 2 12s3 8 10 8a9 9 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M2 2l20 20"/>';
+}
+
+// ── Category icon map ─────────────────────────────────────────────────────────
+const CAT_BG = {
+  'Belanja':'rgba(0,229,255,.14)','Makan':'rgba(245,158,11,.16)',
+  'Transport':'rgba(251,113,133,.16)','Rumah':'rgba(124,77,255,.16)',
+  'Tagihan':'rgba(52,211,153,.16)','Hiburan':'rgba(0,229,255,.14)',
+  'Kesehatan':'rgba(239,68,68,.16)','Pendidikan':'rgba(59,130,246,.16)',
+  'Pemasukan':'rgba(52,211,153,.16)',
+};
+
+// ── Home UI ───────────────────────────────────────────────────────────────────
+function updateHomeUI() {
+  const first = S.user?.displayName?.split(' ')[0] || 'Kamu';
+  const greet = document.getElementById('user-greeting');
+  if (greet) greet.textContent = `Halo, ${first} 👋`;
+  const badge = document.getElementById('family-badge-name');
+  if (badge) badge.textContent = S.familyName;
+  const pbtn = document.getElementById('profile-btn');
+  if (pbtn) pbtn.textContent = first[0]?.toUpperCase() || 'S';
+  updateBalance();
+  renderFamilyRow();
+  renderTransactions();
+}
+
+const MEMBER_COLORS = [
+  'linear-gradient(135deg,#00e5ff,#7c4dff)',
+  'linear-gradient(135deg,#34d399,#0ea5e9)',
+  'linear-gradient(135deg,#ff8a5c,#ff5d8f)',
+  'linear-gradient(135deg,#fbbf24,#f59e0b)',
+];
+
+function renderFamilyRow() {
+  const row = document.getElementById('family-members-row');
+  if (!row) return;
+  const shown = S.familyMembers.slice(0, 4);
+  row.innerHTML = shown.map((m, i) => {
+    const name = m.name?.split(' ')[0] || 'Anggota';
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#06080f;background:${MEMBER_COLORS[i%4]}">${name[0].toUpperCase()}</div>
+      <span style="font-size:11px;color:#aeb6c9">${name}</span>
+    </div>`;
+  }).join('') + `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+    <button data-action="nav-family" style="width:50px;height:50px;border-radius:16px;border:1.5px dashed rgba(255,255,255,.2);background:rgba(255,255,255,.03);color:#8b95ad;font-size:24px;display:flex;align-items:center;justify-content:center">+</button>
+    <span style="font-size:11px;color:#8b95ad">Undang</span>
+  </div>`;
+}
+
+function renderTransactions() {
+  const list = document.getElementById('txn-list');
+  if (!list) return;
+  const recent = S.transactions.slice(0, 10);
+  if (!recent.length) {
+    list.innerHTML = `<div style="text-align:center;padding:32px 0;color:#6b7488;font-size:13px;line-height:1.8">Belum ada transaksi.<br>Yuk tambah transaksi pertamamu! 🎉</div>`;
+    return;
+  }
+  list.innerHTML = recent.map(t => {
+    const icon  = t.categoryEmoji || (t.type === 'income' ? '💰' : '💸');
+    const color = t.type === 'income' ? 'var(--income)' : '#eef2fb';
+    const sign  = t.type === 'income' ? '+' : '−';
+    const bg    = CAT_BG[t.category] || 'rgba(255,255,255,.08)';
+    const sub   = t.type === 'income'
+      ? `Pemasukan · ${t.userName || ''}`
+      : `${t.category || 'Lainnya'} · ${t.userName || ''}`;
+    const label = t.type === 'income' ? 'Pemasukan' : (t.category || 'Transaksi');
+    return `<div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:12px 14px">
+      <div style="width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:${bg}">${icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:600;font-size:14px">${label}</div>
+        <div style="color:#7e889e;font-size:11.5px;margin-top:2px">${sub}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div class="sg" style="font-weight:600;font-size:13.5px;color:${color}">${sign}${fmt(t.amount)}</div>
+        <div style="color:#6b7488;font-size:10.5px;margin-top:2px">${fmtDate(t.createdAt)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Reports UI ────────────────────────────────────────────────────────────────
+function updateReportsUI() {
+  const { income, expense, saldo } = calcTotals(getFilteredTxns());
+  const pct = income > 0 ? Math.round((saldo / income) * 100) : 0;
+  const ri = document.getElementById('report-income');
+  const re = document.getElementById('report-expense');
+  const rs = document.getElementById('report-saldo');
+  const rp = document.getElementById('report-pct');
+  const dt = document.getElementById('donut-total');
+  if (ri) ri.textContent = fmt(income);
+  if (re) re.textContent = fmt(expense);
+  if (rs) rs.textContent = fmt(saldo);
+  if (rp) rp.textContent = `${pct > 0 ? '+' : ''}${pct}% hemat`;
+  if (dt) dt.textContent = expense > 0 ? fmt(expense) : 'Rp 0';
+}
+
+// ── Family UI ─────────────────────────────────────────────────────────────────
+function updateFamilyUI() {
+  const title = document.getElementById('family-screen-title');
+  const sub   = document.getElementById('family-screen-sub');
+  const count = document.getElementById('family-member-count');
+  const list  = document.getElementById('family-member-list');
+  if (title) title.textContent = S.familyName;
+  if (sub)   sub.textContent   = `${S.familyMembers.length} anggota aktif`;
+  if (count) count.textContent = S.familyMembers.length;
+  if (!list) return;
+  list.innerHTML = S.familyMembers.map((m, i) => {
+    const name    = m.name?.split(' ')[0] || 'Anggota';
+    const isAdmin = m.role === 'admin';
+    const badge   = isAdmin
+      ? `<span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(0,229,255,.15);color:var(--accent)">Admin</span>`
+      : `<span style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.08);color:#aeb6c9">Anggota</span>`;
+    return `<div class="glass-card" style="display:flex;align-items:center;gap:13px;padding:13px 15px">
+      <div style="width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#06080f;flex-shrink:0;background:${MEMBER_COLORS[i%4]}">${name[0].toUpperCase()}</div>
+      <div style="flex:1"><div style="font-weight:700;font-size:14px">${m.name || name}</div><div style="color:#7e889e;font-size:11.5px;margin-top:2px">${m.email||''}</div></div>
+      ${badge}
+    </div>`;
+  }).join('');
+}
+
+// ── Profile UI ────────────────────────────────────────────────────────────────
+function updateProfileUI() {
+  if (!S.user) return;
+  const first  = S.user.displayName?.split(' ')[0] || 'Kamu';
+  const letter = first[0]?.toUpperCase() || 'S';
+  const isAdmin = S.familyMembers.find(m => m.uid === S.user.uid)?.role === 'admin';
+  const el = id => document.getElementById(id);
+  if (el('profile-name'))   el('profile-name').textContent   = S.user.displayName || first;
+  if (el('profile-email'))  el('profile-email').textContent  = S.user.email;
+  if (el('profile-avatar')) el('profile-avatar').textContent = letter;
+  if (el('profile-role'))   el('profile-role').textContent   = `★ ${isAdmin ? 'Admin' : 'Anggota'} ${S.familyName}`;
+}
+
+// ── Realtime transactions ─────────────────────────────────────────────────────
+function subscribeTransactions() {
+  if (S.unsubTxn) S.unsubTxn();
+  if (!S.familyId) return;
+  const q = query(collection(db, 'families', S.familyId, 'transactions'), orderBy('createdAt', 'desc'));
+  S.unsubTxn = onSnapshot(q, snap => {
+    S.transactions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    updateBalance();
+    renderTransactions();
+    updateReportsUI();
+    buildCalendar();
+  }, err => console.error('txn listener:', err));
+}
+
+// ── Load user & family data ───────────────────────────────────────────────────
+async function loadUserData(user) {
+  const userRef  = doc(db, 'users', user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    // Check invitation
+    const invSnap = await getDoc(doc(db, 'invitations', user.email));
+    let familyId;
+
+    if (invSnap.exists()) {
+      const inv = invSnap.data();
+      familyId  = inv.familyId;
+      const famRef  = doc(db, 'families', familyId);
+      const famSnap = await getDoc(famRef);
+      if (famSnap.exists()) {
+        const fdata   = famSnap.data();
+        const members = [...(fdata.members || [])];
+        members.push({ uid: user.uid, name: user.displayName || 'Anggota', email: user.email, role: 'member' });
+        await setDoc(famRef, { members }, { merge: true });
+        S.familyName    = fdata.name;
+        S.familyMembers = members;
+      }
+      await deleteDoc(doc(db, 'invitations', user.email));
+      showToast(`Bergabung ke ${S.familyName}!`);
+    } else {
+      const famName = `Keluarga ${user.displayName?.split(' ')[0] || 'Saku'}`;
+      const newFam  = {
+        name: famName, adminUid: user.uid,
+        members: [{ uid: user.uid, name: user.displayName || 'Admin', email: user.email, role: 'admin' }],
+        createdAt: serverTimestamp(),
+      };
+      const famRef  = await addDoc(collection(db, 'families'), newFam);
+      familyId        = famRef.id;
+      S.familyName    = famName;
+      S.familyMembers = newFam.members;
+    }
+    S.familyId = familyId;
+    await setDoc(userRef, { name: user.displayName, email: user.email, photoURL: user.photoURL || null, familyId, theme: 'aurora', createdAt: serverTimestamp() });
+  } else {
+    const data = userSnap.data();
+    S.familyId = data.familyId;
+    if (data.theme) applyTheme(data.theme);
+    const famSnap = await getDoc(doc(db, 'families', S.familyId));
+    if (famSnap.exists()) {
+      S.familyName    = famSnap.data().name;
+      S.familyMembers = famSnap.data().members || [];
+    }
+  }
+  subscribeTransactions();
+}
+
+// ── Loading overlay ───────────────────────────────────────────────────────────
+function showLoading(on) {
+  let el = document.getElementById('loading-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'loading-overlay';
+    el.style.cssText = 'position:absolute;inset:0;z-index:50;background:rgba(10,14,26,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:42px';
+    el.innerHTML = `<div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#06080f">S</div><div style="color:#8b95ad;font-size:13px">Memuat data...</div>`;
+    scrEl.appendChild(el);
+  }
+  el.style.display = on ? 'flex' : 'none';
+}
+
+// ── Auth state ────────────────────────────────────────────────────────────────
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    S.user = user;
+    showLoading(true);
+    try { await loadUserData(user); } catch(e) { console.error(e); showToast('Gagal memuat data', true); }
+    showLoading(false);
+    updateHomeUI(); updateProfileUI(); updateFamilyUI();
+    navigate('home');
+  } else {
+    S.user = null;
+    if (S.unsubTxn) { S.unsubTxn(); S.unsubTxn = null; }
+    navigate('login');
+  }
+});
+
 // ── Navigation ────────────────────────────────────────────────────────────────
-const screenViews = { home: vHome, reports: vReports, family: vFamily, profile: vProfile };
-const bnavBtns = {
+const views   = { home: vHome, reports: vRep, family: vFam, profile: vProf };
+const bnavMap = {
   home:    document.getElementById('bnav-home'),
   reports: document.getElementById('bnav-reports'),
   family:  document.getElementById('bnav-family'),
   profile: document.getElementById('bnav-profile'),
 };
 
-function navigate(target){
-  if(target === 'login'){
+function navigate(target) {
+  if (target === 'login') {
     S.screen = 'login';
     vApp.classList.remove('active');
     vLogin.classList.add('active');
     return;
   }
-  // leaving login
-  if(S.screen === 'login'){
-    vLogin.classList.remove('active');
-    vApp.classList.add('active');
-  }
-  // hide all sub-screens
-  Object.values(screenViews).forEach(v => v.classList.remove('active'));
-  // show target
-  const target_view = screenViews[target];
-  if(target_view){
-    target_view.classList.add('active');
-    // re-trigger fade animation
-    target_view.style.animation = 'none';
-    requestAnimationFrame(() => { target_view.style.animation = ''; });
-  }
-  // scroll to top
+  if (S.screen === 'login') { vLogin.classList.remove('active'); vApp.classList.add('active'); }
+  Object.values(views).forEach(v => v.classList.remove('active'));
+  const tv = views[target];
+  if (tv) { tv.classList.add('active'); tv.style.animation = 'none'; requestAnimationFrame(() => { tv.style.animation = ''; }); }
   document.getElementById('main-scroll').scrollTop = 0;
-  // update nav
-  const accent = S.theme==='mint' ? '#34d399' : S.theme==='sunset' ? '#ff8a5c' : '#00e5ff';
-  Object.entries(bnavBtns).forEach(([id, btn]) => {
-    btn.style.color = id === target ? accent : '#6b7488';
-  });
+  const accent = S.theme==='mint'?'#34d399':S.theme==='sunset'?'#ff8a5c':'#00e5ff';
+  Object.entries(bnavMap).forEach(([id,btn]) => { btn.style.color = id===target ? accent : '#6b7488'; });
   S.screen = target;
+  if (target === 'home')    updateHomeUI();
+  if (target === 'reports') { updateReportsUI(); buildCalendar(); }
+  if (target === 'family')  updateFamilyUI();
+  if (target === 'profile') updateProfileUI();
 }
 
 // ── Period tabs ───────────────────────────────────────────────────────────────
 document.getElementById('period-tabs').addEventListener('click', e => {
   const btn = e.target.closest('[data-period]');
-  if(!btn) return;
-  const p = parseInt(btn.dataset.period);
-  S.period = p;
-  const accent = S.theme==='mint' ? '#34d399' : S.theme==='sunset' ? '#ff8a5c' : '#00e5ff';
-  const accent2 = S.theme==='mint' ? '#fbbf24' : S.theme==='sunset' ? '#ff5d8f' : '#7c4dff';
+  if (!btn) return;
+  S.period = parseInt(btn.dataset.period);
+  const a  = S.theme==='mint'?'#34d399':S.theme==='sunset'?'#ff8a5c':'#00e5ff';
+  const a2 = S.theme==='mint'?'#fbbf24':S.theme==='sunset'?'#ff5d8f':'#7c4dff';
   document.querySelectorAll('#period-tabs [data-period]').forEach((b,i) => {
-    if(i === p){
-      b.style.background = `linear-gradient(135deg,${accent},${accent2})`;
-      b.style.color = '#06080f';
-    } else {
-      b.style.background = 'transparent';
-      b.style.color = '#8b95ad';
-    }
+    b.style.background = i===S.period ? `linear-gradient(135deg,${a},${a2})` : 'transparent';
+    b.style.color      = i===S.period ? '#06080f' : '#8b95ad';
   });
+  updateReportsUI();
 });
 
 // ── Sheet ─────────────────────────────────────────────────────────────────────
-const sheetPanels = {
-  manual: document.getElementById('sheet-manual'),
-  voice:  document.getElementById('sheet-voice'),
-  photo:  document.getElementById('sheet-photo'),
-};
+const panels = { manual: document.getElementById('sheet-manual'), voice: document.getElementById('sheet-voice'), photo: document.getElementById('sheet-photo') };
 
-function openSheet(method){
+function openSheet(method) {
   S.sheet = method;
-  show(sheetOv);
-  show(sheetPan);
-  // activate correct panel
-  Object.entries(sheetPanels).forEach(([k,v]) => {
-    if(k === method){ v.classList.remove('h'); }
-    else { v.classList.add('h'); }
-  });
-  // update tabs
-  const accent = S.theme==='mint' ? '#34d399' : S.theme==='sunset' ? '#ff8a5c' : '#00e5ff';
-  const accent2 = S.theme==='mint' ? '#fbbf24' : S.theme==='sunset' ? '#ff5d8f' : '#7c4dff';
-  document.querySelectorAll('#sheet-tabs [data-method]').forEach(btn => {
-    if(btn.dataset.method === method){
-      btn.style.background = `linear-gradient(135deg,${accent},${accent2})`;
-      btn.style.color = '#06080f';
-    } else {
-      btn.style.background = 'transparent';
-      btn.style.color = '#8b95ad';
-    }
+  show(shOv); show(shPan);
+  Object.entries(panels).forEach(([k,v]) => k===method ? v.classList.remove('h') : v.classList.add('h'));
+  const a  = S.theme==='mint'?'#34d399':S.theme==='sunset'?'#ff8a5c':'#00e5ff';
+  const a2 = S.theme==='mint'?'#fbbf24':S.theme==='sunset'?'#ff5d8f':'#7c4dff';
+  document.querySelectorAll('#sheet-tabs [data-method]').forEach(b => {
+    b.style.background = b.dataset.method===method ? `linear-gradient(135deg,${a},${a2})` : 'transparent';
+    b.style.color      = b.dataset.method===method ? '#06080f' : '#8b95ad';
   });
 }
 
-function closeSheet(){
-  S.sheet = null;
-  hide(sheetOv);
-  hide(sheetPan);
-}
+function closeSheet() { S.sheet = null; hide(shOv); hide(shPan); }
 
-// ── Sheet method tabs ─────────────────────────────────────────────────────────
 document.getElementById('sheet-tabs').addEventListener('click', e => {
-  const btn = e.target.closest('[data-method]');
-  if(btn) openSheet(btn.dataset.method);
+  const b = e.target.closest('[data-method]');
+  if (b) openSheet(b.dataset.method);
 });
 
 // ── Txn type tabs ─────────────────────────────────────────────────────────────
-function updateTxnTabs(){
+function updateTxnTabs() {
   const isExp = S.txnType === 'expense';
-  const tabE = document.getElementById('tab-expense');
-  const tabI = document.getElementById('tab-income');
-  tabE.style.background = isExp ? 'rgba(251,113,133,.15)' : 'rgba(255,255,255,.04)';
-  tabE.style.border = isExp ? '1.5px solid var(--expense)' : '1.5px solid transparent';
-  tabE.style.color = isExp ? 'var(--expense)' : '#8b95ad';
-  tabI.style.background = !isExp ? 'rgba(52,211,153,.15)' : 'rgba(255,255,255,.04)';
-  tabI.style.border = !isExp ? '1.5px solid var(--income)' : '1.5px solid transparent';
-  tabI.style.color = !isExp ? 'var(--income)' : '#8b95ad';
+  const te = document.getElementById('tab-expense');
+  const ti = document.getElementById('tab-income');
+  te.style.cssText += `;background:${isExp?'rgba(251,113,133,.15)':'rgba(255,255,255,.04)'};border:1.5px solid ${isExp?'var(--expense)':'transparent'};color:${isExp?'var(--expense)':'#8b95ad'}`;
+  ti.style.cssText += `;background:${!isExp?'rgba(52,211,153,.15)':'rgba(255,255,255,.04)'};border:1.5px solid ${!isExp?'var(--income)':'transparent'};color:${!isExp?'var(--income)':'#8b95ad'}`;
   document.getElementById('draft-amount').style.color = !isExp ? 'var(--income)' : '#eef2fb';
 }
 
-document.getElementById('tab-expense').addEventListener('click', () => { S.txnType = 'expense'; updateTxnTabs(); });
-document.getElementById('tab-income').addEventListener('click',  () => { S.txnType = 'income'; updateTxnTabs(); });
+document.getElementById('tab-expense').addEventListener('click', () => { S.txnType='expense'; updateTxnTabs(); });
+document.getElementById('tab-income').addEventListener('click',  () => { S.txnType='income';  updateTxnTabs(); });
 
 // ── Category chips ────────────────────────────────────────────────────────────
 const cats = [
-  { emoji:'🛒', label:'Belanja' }, { emoji:'🍔', label:'Makan' },
-  { emoji:'🚗', label:'Transport' }, { emoji:'🏠', label:'Rumah' },
-  { emoji:'💡', label:'Tagihan' }, { emoji:'🎮', label:'Hiburan' },
-  { emoji:'🏥', label:'Kesehatan' }, { emoji:'📚', label:'Pendidikan' },
+  {emoji:'🛒',label:'Belanja'},{emoji:'🍔',label:'Makan'},
+  {emoji:'🚗',label:'Transport'},{emoji:'🏠',label:'Rumah'},
+  {emoji:'💡',label:'Tagihan'},{emoji:'🎮',label:'Hiburan'},
+  {emoji:'🏥',label:'Kesehatan'},{emoji:'📚',label:'Pendidikan'},
 ];
 
-function buildCatGrid(){
+function buildCatGrid() {
   const grid = document.getElementById('cat-grid');
   grid.innerHTML = '';
-  const accent = S.theme==='mint' ? '#34d399' : S.theme==='sunset' ? '#ff8a5c' : '#00e5ff';
+  const accent = S.theme==='mint'?'#34d399':S.theme==='sunset'?'#ff8a5c':'#00e5ff';
   cats.forEach((c, i) => {
     const btn = document.createElement('button');
-    btn.style.cssText = `cursor:pointer;border-radius:15px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;${
-      i === S.catIndex
-        ? `background:rgba(0,229,255,.14);border:1.5px solid ${accent};`
-        : 'background:rgba(255,255,255,.04);border:1.5px solid transparent;'
-    }`;
+    btn.style.cssText = `cursor:pointer;border-radius:15px;padding:11px 4px;display:flex;flex-direction:column;align-items:center;gap:6px;${i===S.catIndex?`background:rgba(0,229,255,.14);border:1.5px solid ${accent};`:'background:rgba(255,255,255,.04);border:1.5px solid transparent;'}`;
     btn.innerHTML = `<span style="font-size:21px">${c.emoji}</span><span style="font-size:10px;font-weight:600;color:#cdd5e6">${c.label}</span>`;
     btn.addEventListener('click', () => { S.catIndex = i; buildCatGrid(); });
     grid.appendChild(btn);
@@ -817,7 +926,7 @@ function buildCatGrid(){
 }
 
 // ── Keypad ────────────────────────────────────────────────────────────────────
-function buildKeypad(){
+function buildKeypad() {
   const grid = document.getElementById('keypad-grid');
   grid.innerHTML = '';
   ['1','2','3','4','5','6','7','8','9','.','0','⌫'].forEach(k => {
@@ -825,39 +934,83 @@ function buildKeypad(){
     btn.className = 'kbtn';
     btn.textContent = k;
     btn.addEventListener('click', () => {
-      if(k === '⌫'){ S.draft = S.draft.slice(0,-1); }
-      else if(k === '.'){ /* ignore */ }
-      else if(S.draft.length < 9){ S.draft += k; }
-      document.getElementById('draft-amount').textContent = S.draft
-        ? Number(S.draft).toLocaleString('id-ID') : '0';
+      if (k==='⌫') S.draft = S.draft.slice(0,-1);
+      else if (k!=='.' && S.draft.length < 9) S.draft += k;
+      document.getElementById('draft-amount').textContent = S.draft ? Number(S.draft).toLocaleString('id-ID') : '0';
     });
     grid.appendChild(btn);
   });
 }
 
+// ── Save transaction ──────────────────────────────────────────────────────────
+async function saveTransaction(amount, category, emoji) {
+  if (!S.familyId) { showToast('Belum terhubung ke keluarga', true); return; }
+  const first = S.user?.displayName?.split(' ')[0] || 'Kamu';
+  try {
+    await addDoc(collection(db, 'families', S.familyId, 'transactions'), {
+      type: S.txnType,
+      amount,
+      category: S.txnType==='income' ? 'Pemasukan' : category,
+      categoryEmoji: S.txnType==='income' ? '💰' : emoji,
+      uid: S.user.uid,
+      userName: first,
+      createdAt: serverTimestamp(),
+    });
+    closeSheet(); S.draft = '';
+    showToast('Transaksi tersimpan! ✓');
+  } catch(e) { showToast('Gagal menyimpan. Coba lagi.', true); }
+}
+
+// ── Invite ────────────────────────────────────────────────────────────────────
+async function sendInvite() {
+  const input = document.getElementById('invite-email');
+  const email = input?.value?.trim();
+  if (!email || !email.includes('@')) { showToast('Masukkan email yang valid', true); return; }
+  if (!S.familyId) return;
+  try {
+    await setDoc(doc(db, 'invitations', email), {
+      familyId: S.familyId, familyName: S.familyName,
+      inviterName: S.user?.displayName || 'Admin',
+      createdAt: serverTimestamp(),
+    });
+    if (input) input.value = '';
+    showToast(`Undangan dikirim ke ${email}!`);
+  } catch(e) { showToast('Gagal mengirim undangan', true); }
+}
+
 // ── Calendar ──────────────────────────────────────────────────────────────────
-function buildCalendar(){
+function buildCalendar() {
   const grid = document.getElementById('calendar-grid');
-  if(!grid) return;
-  const weekdays = ['S','S','R','K','J','S','M'];
-  const intensities = {3:.3,5:.6,8:.9,9:.3,12:.55,14:.9,17:.3,18:.6,21:.85,23:.4,25:.6,28:.9,30:.5};
+  if (!grid) return;
+  const now = new Date();
+  const year = now.getFullYear(), month = now.getMonth();
+  const days = new Date(year, month+1, 0).getDate();
+  const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const cm = document.getElementById('calendar-month');
+  if (cm) cm.textContent = `${monthNames[month]} ${year}`;
+
+  const daily = {};
+  S.transactions.forEach(t => {
+    if (t.type!=='expense'||!t.createdAt) return;
+    const d = t.createdAt.toDate ? t.createdAt.toDate() : new Date(t.createdAt);
+    if (d.getFullYear()===year && d.getMonth()===month) daily[d.getDate()] = (daily[d.getDate()]||0) + (t.amount||0);
+  });
+  const maxExp = Math.max(...Object.values(daily), 1);
+
   grid.innerHTML = '';
-  weekdays.forEach(w => {
+  ['S','S','R','K','J','S','M'].forEach(w => {
     const d = document.createElement('div');
     d.style.cssText = 'text-align:center;font-size:9.5px;color:#6b7488;font-weight:600';
     d.textContent = w;
     grid.appendChild(d);
   });
-  // 2 blank spacers
-  for(let i=0;i<2;i++){
-    const d = document.createElement('div');
-    d.style.cssText = 'aspect-ratio:1;border-radius:8px';
-    grid.appendChild(d);
-  }
-  for(let day=1;day<=30;day++){
-    const it = intensities[day] || 0;
-    const bg = it===0 ? 'rgba(255,255,255,.05)' : `rgba(0,229,255,${it})`;
-    const col = it > 0.5 ? '#06080f' : '#8b95ad';
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+  for (let i=0; i<offset; i++) { const d=document.createElement('div'); d.style.cssText='aspect-ratio:1;border-radius:8px'; grid.appendChild(d); }
+  for (let day=1; day<=days; day++) {
+    const exp = daily[day]||0;
+    const alpha = exp>0 ? Math.min(0.25 + (exp/maxExp)*0.65, 0.9) : 0;
+    const bg  = alpha>0 ? `rgba(0,229,255,${alpha.toFixed(2)})` : 'rgba(255,255,255,.05)';
+    const col = alpha>0.5 ? '#06080f' : '#8b95ad';
     const d = document.createElement('div');
     d.style.cssText = `aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:500;background:${bg};color:${col}`;
     d.textContent = day;
@@ -868,28 +1021,43 @@ function buildCalendar(){
 // ── Event delegation ──────────────────────────────────────────────────────────
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-action]');
-  if(!el) return;
+  if (!el) return;
   const a = el.dataset.action;
-  if(a === 'login')         { navigate('home'); }
-  else if(a === 'logout')   { closeSheet(); navigate('login'); }
-  else if(a === 'nav-home')    { navigate('home'); }
-  else if(a === 'nav-reports') { navigate('reports'); }
-  else if(a === 'nav-family')  { navigate('family'); }
-  else if(a === 'nav-profile') { navigate('profile'); }
-  else if(a === 'open-manual') { buildCatGrid(); buildKeypad(); openSheet('manual'); }
-  else if(a === 'open-voice')  { openSheet('voice'); }
-  else if(a === 'open-photo')  { openSheet('photo'); }
-  else if(a === 'close-sheet') { closeSheet(); }
-  else if(a === 'toggle-balance') { S.hideBalance = !S.hideBalance; updateBalance(); }
-  else if(a === 'save-txn') { closeSheet(); S.draft = ''; showToast('Transaksi tersimpan!'); }
-  else if(a === 'retry-photo') { /* reset scan animation */ }
-  else if(a === 'do-invite') { showToast('Tautan undangan disalin!'); }
+
+  if (a==='login') {
+    signInWithPopup(auth, gprov).catch(err => {
+      if (err.code !== 'auth/popup-closed-by-user') showToast('Login gagal. Coba lagi.', true);
+    });
+  }
+  else if (a==='login-email') showToast('Segera hadir — gunakan Google dulu ya!')
+  else if (a==='logout')   { closeSheet(); signOut(auth); }
+  else if (a==='nav-home')    navigate('home');
+  else if (a==='nav-reports') navigate('reports');
+  else if (a==='nav-family')  navigate('family');
+  else if (a==='nav-profile') navigate('profile');
+  else if (a==='open-manual') { buildCatGrid(); buildKeypad(); openSheet('manual'); }
+  else if (a==='open-voice')  openSheet('voice');
+  else if (a==='open-photo')  openSheet('photo');
+  else if (a==='close-sheet') closeSheet();
+  else if (a==='toggle-balance') { S.hideBalance = !S.hideBalance; updateBalance(); }
+  else if (a==='save-txn') {
+    const amount = parseInt(S.draft)||0;
+    if (!amount) { showToast('Masukkan jumlah dulu!', true); return; }
+    saveTransaction(amount, cats[S.catIndex].label, cats[S.catIndex].emoji);
+  }
+  else if (a==='save-voice-txn') { saveTransaction(35000, 'Belanja', '🛒'); }
+  else if (a==='save-photo-txn') { saveTransaction(35000, 'Belanja', '🛒'); }
+  else if (a==='retry-photo')  { /* reset scan */ }
+  else if (a==='do-invite')    sendInvite();
+  else if (a==='copy-link') {
+    navigator.clipboard.writeText(S.familyId||'').then(() => showToast('Kode keluarga disalin!')).catch(() => showToast('Tidak bisa menyalin', true));
+  }
 });
 
 // ── Theme picker ──────────────────────────────────────────────────────────────
 document.getElementById('theme-selector').addEventListener('click', e => {
-  const btn = e.target.closest('[data-theme-pick]');
-  if(btn) applyTheme(btn.dataset.themePick);
+  const b = e.target.closest('[data-theme-pick]');
+  if (b) applyTheme(b.dataset.themePick);
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────
