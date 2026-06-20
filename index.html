@@ -810,11 +810,25 @@ function showLoading(on) {
 }
 
 // ── Auth state ────────────────────────────────────────────────────────────────
+const withTimeout = (promise, ms) => Promise.race([promise, new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
+
 onAuthStateChanged(auth, async user => {
   if (user) {
     S.user = user;
     showLoading(true);
-    try { await loadUserData(user); } catch(e) { console.error(e); showToast('Gagal memuat data', true); }
+    try {
+      await withTimeout(loadUserData(user), 10000);
+    } catch(e) {
+      console.error('loadUserData error:', e);
+      if (e.message === 'timeout') {
+        showToast('Koneksi lambat — coba lagi', true);
+      } else {
+        showToast('Gagal memuat data: ' + (e.code || e.message), true);
+      }
+      // Still navigate to home with empty state
+      S.familyName = `Keluarga ${user.displayName?.split(' ')[0] || 'Saku'}`;
+      S.familyMembers = [{ uid: user.uid, name: user.displayName, email: user.email, role: 'admin' }];
+    }
     showLoading(false);
     updateHomeUI(); updateProfileUI(); updateFamilyUI();
     navigate('home');
